@@ -1,0 +1,20 @@
+div {
+  font-family: "Roboto", sans-serif!important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.ukraine_now {
+  text-align: right;
+}
+
+.ukraine_now_logo {
+  height: 20vh;
+}
+
+.checkbox {
+    margin: 10px;
+}
