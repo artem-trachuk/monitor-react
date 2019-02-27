@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Divider, Icon, Image, List} from "semantic-ui-react";
+import { Divider, Icon, Image, List } from "semantic-ui-react";
 import { serverURL } from "../helpers/serverURL";
 import Photos from "../organisms/Photos";
 import CompanyView from "../organisms/CompanyView";
@@ -8,8 +8,10 @@ import CompanyHub from "../molecules/CompanyHub";
 import CompanySettings from "../molecules/CompanySettings";
 import Contact from "../molecules/Contact";
 import CompanyContacts from "../organisms/CompanyContacts";
-import {Header} from "semantic-ui-react";
-import {FormattedMessage} from "react-intl";
+import { Header } from "semantic-ui-react";
+import { FormattedMessage } from "react-intl";
+import DocsOrganism from "../organisms/DocsOrganism";
+import LogoPhotosHeaders from "../organisms/LogoPhotosHeaders";
 
 const CompanyViewTemplate = props => {
   const company = props.company;
@@ -17,29 +19,23 @@ const CompanyViewTemplate = props => {
   return (
     <div className="ui container">
       <div className="ui grid">
-        <div className="row">
-          <div className="three wide column middle aligned">
-            {company.logo && (
-              <Image size="medium" src={serverURL + company.logo} />
-            )}
-          </div>
-          <Photos photos={company.photos} />
-        </div>
+        <LogoPhotosHeaders logo={company.logo} photos={company.photos}/>
         <Divider />
-        {company.update && <CompanySettings company={company} />}
+        {company.update && (
+          <CompanySettings company={company} deleteCompany={company.delete} />
+        )}
         <CompanyView company={company} id={company._id} CRUD={CRUD} />
-        <Divider />
         <div className="four column row stackable">
           {company.hubs &&
-          company.hubs.map(hub => <CompanyHub key={hub._id} hub={hub} />)}
+            company.hubs.map(hub => <CompanyHub key={hub._id} hub={hub} />)}
         </div>
+        {company.documents && <DocsOrganism documents={company.documents} />}
         {company.contacts && company.contacts.length > 0 && (
           <div className="sixteen wide column">
-            <Divider />
             <Header as="h2">
               <Icon name="address book" />
               <Header.Content>
-                <FormattedMessage id="top.contacts" />
+                <FormattedMessage id="interface.contacts" />
               </Header.Content>
             </Header>
             <CompanyContacts contacts={company.contacts} />

@@ -13,7 +13,7 @@ const CompanyEditForm = () => {
       <div className="eight wide column">
         <Form.Field>
           <label>
-            <FormattedMessage id="editor.name" />
+            <FormattedMessage id="interface.name" />
           </label>
           <Field
             icon="industry"
@@ -26,7 +26,7 @@ const CompanyEditForm = () => {
         </Form.Field>
         <Form.Field>
           <label>
-            <FormattedMessage id="companyEditor.address" />
+            <FormattedMessage id="interface.address" />
           </label>
           <Field icon="map marker alternate" iconPosition="left" name="address" component={renderField} type="text" />
         </Form.Field>
@@ -38,31 +38,31 @@ const CompanyEditForm = () => {
         </Form.Field>
         <Form.Field>
           <label>
-            <FormattedMessage id="companyEditor.email" />
+            <FormattedMessage id="interface.email" />
           </label>
           <Field icon="at" iconPosition="left" name="email" component={renderField} type="text" />
         </Form.Field>
         <Form.Field>
           <label>
-            <FormattedMessage id="editor.note" />
+            <FormattedMessage id="interface.note" />
           </label>
           <Field name="note" component="textarea" rows={3} />
         </Form.Field>
         <Field
           component={inputField}
-          text={<FormattedMessage id={"editor.uploadLogo"} />}
+          text={<FormattedMessage id={"interface.uploadLogo"} />}
           name="logo"
           icon="circle outline"
         />
         <Field
           component={inputField}
-          text={<FormattedMessage id={"companyEditor.uploadPhotos"} />}
+          text={<FormattedMessage id={"interface.uploadPhotos"} />}
           icon="file image"
           name="photos"
         />
         <Field
           component={inputField}
-          text={<FormattedMessage id={"companyEditor.uploadDocuments"} />}
+          text={<FormattedMessage id={"interface.uploadDocuments"} />}
           icon="file pdf"
           name="documents"
         />

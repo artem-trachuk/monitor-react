@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Now from "../now.png";
-import { Dropdown, Flag, Icon, List } from "semantic-ui-react";
+import {Divider, Dropdown, Flag, Icon, List} from "semantic-ui-react";
 import { changeLanguage } from "../actions/userActions";
 import { connect } from "react-redux";
 import { FormattedMessage, injectIntl } from "react-intl";

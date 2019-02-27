@@ -51,7 +51,7 @@ class PermissionsSearchUser extends Component {
             labelPosition="right"
             positive
           >
-            <FormattedMessage id="editor.save" /> <Icon name="save" />
+            <FormattedMessage id="interface.save" /> <Icon name="save" />
           </Button>
         </div>
       </div>

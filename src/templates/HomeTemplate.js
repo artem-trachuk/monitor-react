@@ -13,7 +13,7 @@ const HomeTemplate = props => {
           <div className="column">
             <Header size="medium">
               <FormattedMessage
-                id="home.greeting"
+                id="string.greeting"
                 description="Greeting to welcome the user to the app"
                 values={{
                   name: <b>{props.displayName}</b>

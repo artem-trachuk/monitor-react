@@ -8,6 +8,8 @@ import DeviceView from "../organisms/DeviceView";
 import MapWrapper from "../organisms/MapWrapper";
 import { serverURL } from "../helpers/serverURL";
 import DeviceSettings from "../molecules/DeviceSettings";
+import DocsOrganism from "../organisms/DocsOrganism";
+import LogoPhotosHeaders from "../organisms/LogoPhotosHeaders";
 
 const DeviceViewTemplate = props => {
   const device = props.device;
@@ -15,21 +17,10 @@ const DeviceViewTemplate = props => {
   return (
     <div className="ui container">
       <div className="ui grid">
-        <div className="row">
-          <div className="three wide column middle aligned">
-            <Link to={"/r/companies/view/" + company._id}>
-              {company.logo ? (
-                <Image src={serverURL + company.logo} />
-              ) : (
-                <Header as="h1">{company.name}</Header>
-              )}
-            </Link>
-          </div>
-          <Photos photos={device.photos} />
-        </div>
+        <LogoPhotosHeaders logo={company.logo} photos={device.photos}/>
         <Divider />
         {device.update && (
-          <DeviceSettings update={device.update} device={device} />
+          <DeviceSettings update={device.update} device={device} deleteDevice={device.delete} />
         )}
         <div className="row stackable">
           <DeviceView device={device} />
@@ -42,6 +33,7 @@ const DeviceViewTemplate = props => {
             </div>
           )}
         </div>
+        {device.documents && device.documents.length > 0 && <DocsOrganism documents={device.documents}/>}
       </div>
     </div>
   );

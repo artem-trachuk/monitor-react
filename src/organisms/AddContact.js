@@ -50,7 +50,7 @@ class AddContact extends Component {
           <Form onSubmit={handleSubmit(this.submitForm)}>
             <Form.Field>
               <label>
-                <FormattedMessage id="editor.name" />
+                <FormattedMessage id="interface.humanName" />
               </label>
               <Field
                 name="name"
@@ -72,7 +72,7 @@ class AddContact extends Component {
             </Form.Field>
             <Form.Field>
               <label>
-                <FormattedMessage id="editor.note" />
+                <FormattedMessage id="interface.note" />
               </label>
               <Field name="note" component="textarea" rows={3} />
             </Form.Field>
@@ -83,7 +83,7 @@ class AddContact extends Component {
               positive
               disabled={pristine || submitting}
             >
-              <FormattedMessage id="editor.save" /> <Icon name="save" />
+              <FormattedMessage id="interface.save" /> <Icon name="save" />
             </Button>
           </Form>
         </Modal.Content>

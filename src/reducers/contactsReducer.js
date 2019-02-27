@@ -1,11 +1,11 @@
 import {
+  RECEIVE_CONTACT,
   RECEIVE_CONTACTS,
   REQUEST_CONTACTS,
   SET_CONTACTS_ERROR
 } from "../actions/contactsActions";
-import { combineReducers } from "redux";
 
-function contacts(
+export default function contacts(
   state = { isFetching: false, contacts: [], error: null },
   action
 ) {
@@ -28,11 +28,19 @@ function contacts(
         error: action.payload,
         isFetching: false
       };
+    case RECEIVE_CONTACT:
+      const contactsCopy = [...state.contacts];
+      const contactIndex = contactsCopy.findIndex(c => c._id === action.payload._id);
+      if (contactIndex !== -1) {
+        contactsCopy[contactIndex] = action.payload;
+      } else {
+        contactsCopy.push(action.payload);
+      }
+      return {
+        ...state,
+        contacts: contactsCopy
+      };
     default:
       return state;
   }
 }
-
-const contactsReducer = combineReducers({ contacts });
-
-export default contactsReducer;

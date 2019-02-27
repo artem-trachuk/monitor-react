@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import {Divider, Header, Icon, Popup} from "semantic-ui-react";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
-import CompanyPopup from "../molecules/CompanyPopup";
 import HubDevices from "./HubDevices";
 
 const HubView = props => {
@@ -14,7 +13,7 @@ const HubView = props => {
           <Icon name="warehouse" />
           <Header.Content>
             <Header.Subheader>
-              <FormattedMessage id="editor.name" />
+              <FormattedMessage id="interface.name" />
             </Header.Subheader>
             {hub.name}
           </Header.Content>
@@ -23,19 +22,11 @@ const HubView = props => {
           <Icon name="industry" />
           <Header.Content>
             <Header.Subheader>
-              <FormattedMessage id="editor.company" />
+              <FormattedMessage id="interface.company" />
             </Header.Subheader>
-            <Popup
-              trigger={
-                <Link to={"/r/companies/view/" + hub.company._id}>
-                  {hub.company.name}
-                </Link>
-              }
-              flowing
-              hoverable
-            >
-              <CompanyPopup company={hub.company} />
-            </Popup>
+            <Link to={"/r/companies/view/" + hub.company._id}>
+              {hub.company.name}
+            </Link>
           </Header.Content>
         </Header>
         {hub.note && (
@@ -43,7 +34,7 @@ const HubView = props => {
             <Icon name="sticky note" />
             <Header.Content>
               <Header.Subheader>
-                <FormattedMessage id="editor.note" />
+                <FormattedMessage id="interface.note" />
               </Header.Subheader>
               {hub.note}
             </Header.Content>

@@ -18,6 +18,8 @@ const CompanyEditor = props => {
       }}
       header={<CompanyEditHeader />}
       resource={companyResource}
+      photos={company.photos}
+      documents={company.documents}
     >
       <CompanyEditForm />
     </Editor>

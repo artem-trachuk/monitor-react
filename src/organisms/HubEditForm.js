@@ -11,7 +11,7 @@ const HubEditForm = props => {
     <div className="eight wide column">
       <Form.Field>
         <label>
-          <FormattedMessage id="editor.name" />
+          <FormattedMessage id="interface.name" />
         </label>
         <Field
           name="name"
@@ -22,19 +22,19 @@ const HubEditForm = props => {
       </Form.Field>
       <Form.Field>
         <label>
-          <FormattedMessage id="editor.note" />
+          <FormattedMessage id="interface.note" />
         </label>
         <Field name="note" component="textarea" rows={3} />
       </Form.Field>
       <Field
         component={inputField}
-        text={<FormattedMessage id={"companyEditor.uploadPhotos"} />}
+        text={<FormattedMessage id={"interface.uploadPhotos"} />}
         icon="file image"
         name="photos"
       />
       <Field
         component={inputField}
-        text={<FormattedMessage id={"companyEditor.uploadDocuments"} />}
+        text={<FormattedMessage id={"interface.uploadDocuments"} />}
         icon="file pdf"
         name="documents"
       />

@@ -7,7 +7,7 @@ const CompanyEditHeader = () => {
     <div className="sixteen wide column center aligned">
       <Header as="h1">
         <Icon name="industry" />{" "}
-        <FormattedMessage id="companyEditor.editCompany" />
+        <FormattedMessage id="interface.editCompany" />
       </Header>
     </div>
   );

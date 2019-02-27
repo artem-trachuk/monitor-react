@@ -10,6 +10,7 @@ import { setNavigatedLink } from "./navigationActions";
 export const RECEIVE_ITEMS = "RECEIVE_ITEMS";
 export const RECEIVE_ITEM = "RECEIVE_ITEM";
 export const REQUEST_API = "REQUEST_API";
+export const DELETE_ITEM = "DELETE_ITEM";
 
 /*
  * Action creators
@@ -33,6 +34,14 @@ export function receiveItems(items, resource) {
   return {
     type: RECEIVE_ITEMS,
     payload: items,
+    resource: resource
+  };
+}
+
+export function deleteItem(id, resource) {
+  return {
+    type: DELETE_ITEM,
+    id: id,
     resource: resource
   };
 }
@@ -74,6 +83,9 @@ export function getDataByAPI(resource, id) {
 export function postDataByAPI(resource, data) {
   return function(dispatch, getState) {
     const formData = new FormData();
+    if (data.logo) {
+      formData.append("logo", data.logo.item(0));
+    }
     if (data.photos) {
       for (let i = 0; i < data.photos.length; i++) {
         formData.append("photos", data.photos.item(i));
@@ -177,5 +189,41 @@ export function patchDataByAPI(resourceName, data) {
         },
         error => {}
       );
+  };
+}
+
+export function deleteDataByAPI(resourceName, id, query, itemId) {
+  return function(dispatch) {
+    firebase
+      .auth()
+      .currentUser.getIdToken(false)
+      .then(idToken => {
+        if (query) {
+          return axiosHttpClient
+              .delete(resourceName + "/" + id + "?" + query + "=" + itemId, {
+                headers: {
+                  Authorization: "Bearer " + idToken
+                }
+              })
+              .then(
+                  result => {
+                    dispatch(getDataByAPI(resourceName, id));
+                  },
+                  error => {}
+              );
+        }
+        axiosHttpClient
+          .delete(resourceName + "/" + id, {
+            headers: {
+              Authorization: "Bearer " + idToken
+            }
+          })
+          .then(
+            result => {
+              dispatch(deleteItem(id, resourceName));
+            },
+            error => {}
+          );
+      });
   };
 }

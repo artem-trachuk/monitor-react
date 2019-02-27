@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import { axiosHttpClient } from "../axiosInstance";
 import { companyResource } from "../helpers/resourceNames";
-import {getDataByAPI} from "./dataActions";
+import { getDataByAPI } from "./dataActions";
 
 /*
  * Actions
@@ -11,6 +11,7 @@ import {getDataByAPI} from "./dataActions";
 export const REQUEST_CONTACTS = "REQUEST_CONTACTS";
 export const RECEIVE_CONTACTS = "RECEIVE_CONTACTS";
 export const SET_CONTACTS_ERROR = "SET_CONTACTS_ERROR";
+export const RECEIVE_CONTACT = "RECEIVE_CONTACT";
 
 /*
  * Action creators
@@ -26,6 +27,13 @@ export function receiveContacts(contacts) {
   return {
     type: RECEIVE_CONTACTS,
     payload: contacts
+  };
+}
+
+export function receiveContact(contact) {
+  return {
+    type: RECEIVE_CONTACT,
+    payload: contact
   };
 }
 
@@ -57,6 +65,22 @@ export function fetchContacts() {
         result => dispatch(receiveContacts(result.data.result)),
         error => dispatch(setContactsError(error))
       );
+  };
+}
+
+export function fetchContact(id) {
+  return dispatch => {
+    return firebase
+      .auth()
+      .currentUser.getIdToken(false)
+      .then(idToken =>
+        axiosHttpClient.get("contacts/" + id, {
+          headers: {
+            Authorization: "Bearer " + idToken
+          }
+        })
+      )
+      .then(result => dispatch(receiveContact(result.data.result)));
   };
 }
 

@@ -10,6 +10,8 @@ const HubEditor = props => {
   return (
     <Editor
       resource={hubResource}
+      photos={hub.photos}
+      documents={hub.documents}
       initialValues={{ ...hub, photos: undefined, documents: undefined }}
     >
       <HubEditForm />

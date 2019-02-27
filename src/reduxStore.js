@@ -20,7 +20,7 @@ const store = createStore(
     permissionsReducer: permissionsReducer
   }),
   {},
-  applyMiddleware(thunkMiddleware, logger )
+  applyMiddleware(thunkMiddleware, logger)
 );
 
 export default store;

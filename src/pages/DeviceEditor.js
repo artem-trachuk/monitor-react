@@ -10,6 +10,8 @@ function DeviceEditor(props) {
     <Editor
       resource={deviceResource}
       initialValues={{ ...device, photos: undefined, documents: undefined }}
+      photos={device.photos}
+      documents={device.documents}
     >
       <DeviceEditForm deviceType={device.deviceType} />
     </Editor>

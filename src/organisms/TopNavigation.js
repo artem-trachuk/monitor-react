@@ -24,7 +24,7 @@ class TopNavigation extends Component {
             name="home"
             active={this.props.navigationReducer.currentLink === "home"}
           >
-            <Icon name="home" /> <FormattedMessage id="top.home" />
+            <Icon name="home" /> <FormattedMessage id="interface.home" />
           </Menu.Item>
           <Menu.Item
             as={Link}
@@ -32,10 +32,9 @@ class TopNavigation extends Component {
             name="networks"
             active={this.props.navigationReducer.currentLink === "networks"}
           >
-            <Icon name="server" /> <FormattedMessage id="top.networks" />
+            <Icon name="server" /> <FormattedMessage id="interface.networks" />
           </Menu.Item>
           <Menu.Item
-            disabled
             as={Link}
             to="/r/iptable"
             name="iptable"
@@ -49,18 +48,18 @@ class TopNavigation extends Component {
             name="contacts"
             active={this.props.navigationReducer.currentLink === "contacts"}
           >
-            <Icon name="address book" /> <FormattedMessage id="top.contacts" />
+            <Icon name="address book" /> <FormattedMessage id="interface.contacts" />
           </Menu.Item>
-          <Menu.Item
-            disabled
-            as={Link}
-            to="/r/documents"
-            name="documents"
-            active={this.props.navigationReducer.currentLink === "documents"}
-          >
-            <Icon name="file pdf" />{" "}
-            <FormattedMessage id="companyEditor.documents" />
-          </Menu.Item>
+          {/*<Menu.Item*/}
+            {/*disabled*/}
+            {/*as={Link}*/}
+            {/*to="/r/documents"*/}
+            {/*name="documents"*/}
+            {/*active={this.props.navigationReducer.currentLink === "documents"}*/}
+          {/*>*/}
+            {/*<Icon name="file pdf" />{" "}*/}
+            {/*<FormattedMessage id="companyEditor.documents" />*/}
+          {/*</Menu.Item>*/}
           <Menu.Menu position="right">
             {this.props.displayName && (
               <>

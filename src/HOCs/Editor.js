@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Form, Icon } from "semantic-ui-react";
 import { FormattedMessage } from "react-intl";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, change } from "redux-form";
 import MapWrapper from "../organisms/MapWrapper";
 import { patchDataByAPI, postDataByAPI } from "../actions/dataActions";
 import { connect } from "react-redux";
 import { EditorReduxFormName } from "../helpers/editorReduxFormName";
 import { Redirect } from "react-router-dom";
 import { setNavigatedLink } from "../actions/navigationActions";
+import PhotoEditorOrganism from "../organisms/PhotoEditorOrganism";
+import DocEditorOrganism from "../organisms/DocEditorOrganism";
 
 class Editor extends Component {
   componentWillUnmount() {
@@ -39,11 +41,46 @@ class Editor extends Component {
         />
       );
     }
+    // this.props.addMarker(this.props.initialValues.LatLng);
     return (
       <Form onSubmit={handleSubmit(submitForm)}>
         <div className="ui container">
           <div className="ui grid">
             {this.props.header}
+            <div className="row stackable">
+              {this.props.photos &&
+                this.props.photos.length > 0 &&
+                this.props.photos.map(photo => (
+                  <div
+                    key={photo._id}
+                    className="three wide column middle aligned"
+                  >
+                    <PhotoEditorOrganism
+                      src={photo.path}
+                      resource={this.props.resource}
+                      id={this.props.initialValues._id}
+                      queryId={photo._id}
+                    />
+                  </div>
+                ))}
+            </div>
+            <div className="row stackable">
+              {this.props.documents &&
+                this.props.documents.length > 0 &&
+                this.props.documents.map(doc => (
+                  <div
+                    key={doc._id}
+                    className="sixteen wide column"
+                  >
+                    <DocEditorOrganism
+                      resource={this.props.resource}
+                      id={this.props.initialValues._id}
+                      originalname={doc.originalname}
+                      queryId={doc._id}
+                    />
+                  </div>
+                ))}
+            </div>
             <div className="row stackable">
               {this.props.children}
               <div className="eight wide column">
@@ -67,7 +104,7 @@ class Editor extends Component {
                 positive
                 disabled={pristine || submitting}
               >
-                <FormattedMessage id="editor.save" /> <Icon name="save" />
+                <FormattedMessage id="interface.save" /> <Icon name="save" />
               </Button>
             </div>
           </div>
@@ -94,6 +131,9 @@ const mapDispatchToProps = dispatch => {
     },
     setNavigatedLink: link => {
       dispatch(setNavigatedLink(link));
+    },
+    addMarker: value => {
+      dispatch(change(EditorReduxFormName, "LatLng", value));
     }
   };
 };

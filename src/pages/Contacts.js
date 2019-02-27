@@ -38,7 +38,7 @@ class Contacts extends Component {
 
 const mapStateToProps = state => {
   return {
-    allContacts: state.contactsReducer.contacts
+    allContacts: state.contactsReducer
   };
 };
 

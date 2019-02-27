@@ -8,6 +8,7 @@ import { axiosHttpClient } from "../axiosInstance";
 export const REQUEST_ISSUES = "REQUEST_ISSUES";
 export const SET_ISSUES_ERROR = "SET_ISSUES_ERROR";
 export const RECEIVE_ISSUES = "RECEIVE_ISSUES";
+export const UNLOCK_ISSUE = "UNLOCK_ISSUE";
 
 /*
  * Action creators
@@ -69,6 +70,68 @@ export function sendIssue(issue, issueId = null) {
         },
         error => dispatch(setIssuesError(error))
       );
+  };
+}
+
+export function patchIssue(issue, issueId, unlock = false, replyId = false) {
+  console.log(replyId);
+  return function(dispatch) {
+    firebase
+      .auth()
+      .currentUser.getIdToken(false)
+      .then(idToken => {
+        if (unlock) {
+          axiosHttpClient
+            .patch("issues/" + issueId + "/?open=true", null, {
+              headers: {
+                Authorization: "Bearer " + idToken
+              }
+            })
+            .then(result => {
+              dispatch(getIssues("hub", result.data.result.hub));
+            });
+        } else {
+          axiosHttpClient
+            .patch(
+              replyId
+                ? "issues/" + issueId + "/?replyId=" + replyId
+                : "issues/" + issueId,
+              issue,
+              {
+                headers: {
+                  Authorization: "Bearer " + idToken
+                }
+              }
+            )
+            .then(result => {
+              dispatch(getIssues("hub", result.data.result.hub));
+            });
+        }
+      });
+  };
+}
+
+export function deleteIssue(issueId, replyId = false) {
+  return function(dispatch) {
+    firebase
+      .auth()
+      .currentUser.getIdToken(false)
+      .then(idToken => {
+        axiosHttpClient
+          .delete(
+            replyId
+              ? "issues/" + issueId + "/?replyId=" + replyId
+              : "issues/" + issueId,
+            {
+              headers: {
+                Authorization: "Bearer " + idToken
+              }
+            }
+          )
+          .then(result => {
+            dispatch(getIssues("hub", result.data.result.hub));
+          });
+      });
   };
 }
 

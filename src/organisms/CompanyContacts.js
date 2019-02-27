@@ -8,7 +8,7 @@ const CompanyContacts = props => {
     <Card.Group className={"stackable"} itemsPerRow={4}>
       {props.contacts.map(contact => {
         return (
-          <Contact showCompany={true} key={contact._id} contact={contact} />
+          <Contact showCompany={false} key={contact._id} contact={contact} />
         );
       })}
     </Card.Group>

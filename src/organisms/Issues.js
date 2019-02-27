@@ -15,10 +15,19 @@ import {
   FormattedTime,
   injectIntl
 } from "react-intl";
-import { getIssues, sendIssue } from "../actions/issuesActions";
+import {
+  deleteIssue,
+  getIssues,
+  patchIssue,
+  sendIssue
+} from "../actions/issuesActions";
 import { connect } from "react-redux";
 import Load from "../helpers/Load";
 import CommentReplyForm from "../molecules/CommentReplyForm";
+import IssueUnlock from "../molecules/IssueUnlock";
+import { getUserId } from "../actions/userActions";
+import IssueDelete from "../molecules/IssueDelete";
+import IssueEdit from "../molecules/IssueEdit";
 
 class Issues extends Component {
   constructor(props) {
@@ -29,10 +38,14 @@ class Issues extends Component {
     };
 
     this.handleIssueForm = this.handleIssueForm.bind(this);
+    this.unlockIssue = this.unlockIssue.bind(this);
+    this.deleteIssue = this.deleteIssue.bind(this);
+    this.patchIssue = this.patchIssue.bind(this);
   }
 
   componentDidMount() {
     this.props.getIssues("hub", this.props.hub._id);
+    this.props.getUserId();
   }
 
   handleIssueForm(value) {
@@ -40,7 +53,25 @@ class Issues extends Component {
       issue: value
     });
   }
+
   handleCheckbox = (e, { checked }) => this.setState({ collapsed: checked });
+
+  unlockIssue(issueId) {
+    this.props.patchIssue(null, issueId, true);
+  }
+
+  patchIssue(issue, issueId, replyId = false) {
+    if (replyId) {
+      this.props.patchIssue(issue, issueId, false, replyId);
+    } else {
+      this.props.patchIssue(issue, issueId);
+    }
+  }
+
+  deleteIssue(issueId, replyId = false) {
+    this.props.deleteIssue(issueId, replyId);
+  }
+
   render() {
     const { collapsed } = this.state;
     const { intl } = this.props;
@@ -77,16 +108,38 @@ class Issues extends Component {
                 <div>
                   <FormattedDate value={comment.date} />{" "}
                   <FormattedTime value={comment.date} /> (
-                  <FormattedRelative value={comment.date} />)
+                  <FormattedRelative value={comment.date} />
+                  {comment.edited && (
+                    <>
+                      {", "}
+                      <FormattedMessage id={"interface.edited"} />{" "}
+                      <FormattedRelative value={comment.edited} />
+                    </>
+                  )}
+                  ){" "}
+                  {this.props.userId === comment.user._id && (
+                    <IssueEdit
+                      text={comment.message}
+                      _id={comment._id}
+                      replyId={false}
+                      patch={this.patchIssue}
+                    />
+                  )}
+                  {this.props.userId === comment.user._id && (
+                    <IssueDelete
+                      _id={comment._id}
+                      replyId={false}
+                      delete={this.deleteIssue}
+                    />
+                  )}
+                  {!comment.open && this.props.userId === comment.user._id && (
+                    <IssueUnlock _id={comment._id} unlock={this.unlockIssue} />
+                  )}
                 </div>
               </Comment.Metadata>
-              <Comment.Text>{comment.message}</Comment.Text>
-              {comment.open && (
-                <CommentReplyForm
-                  issue={comment._id}
-                  sendIssue={this.props.sendIssue}
-                />
-              )}
+              <Comment.Text>
+                {comment.message}
+              </Comment.Text>
             </Comment.Content>
             <Comment.Group collapsed={collapsed}>
               {comment.replies.map(reply => {
@@ -99,7 +152,30 @@ class Issues extends Component {
                         <div>
                           <FormattedDate value={reply.date} />{" "}
                           <FormattedTime value={reply.date} /> (
-                          <FormattedRelative value={reply.date} />)
+                          <FormattedRelative value={reply.date} />
+                          {reply.edited && (
+                            <>
+                              {", "}
+                              <FormattedMessage id={"interface.edited"} />{" "}
+                              <FormattedRelative value={reply.edited} />
+                            </>
+                          )}
+                          ){" "}
+                          {this.props.userId === reply.user._id && (
+                            <IssueEdit
+                              text={reply.reply}
+                              _id={comment._id}
+                              replyId={reply._id}
+                              patch={this.patchIssue}
+                            />
+                          )}
+                          {this.props.userId === reply.user._id && (
+                            <IssueDelete
+                              _id={comment._id}
+                              replyId={reply._id}
+                              delete={this.deleteIssue}
+                            />
+                          )}
                         </div>
                       </Comment.Metadata>
                       <Comment.Text>{reply.reply}</Comment.Text>
@@ -107,6 +183,12 @@ class Issues extends Component {
                   </Comment>
                 );
               })}
+              {comment.open && (
+                <CommentReplyForm
+                  issue={comment._id}
+                  sendIssue={this.props.sendIssue}
+                />
+              )}
             </Comment.Group>
           </Comment>
         );
@@ -158,7 +240,8 @@ class Issues extends Component {
 
 const mapStateToProps = state => {
   return {
-    issuesReducer: state.issuesReducer
+    issuesReducer: state.issuesReducer,
+    userId: state.userReducer.userId || false
   };
 };
 
@@ -169,6 +252,13 @@ const mapDispatchToProps = dispatch => {
     },
     getIssues: (byWhat, id) => {
       dispatch(getIssues(byWhat, id));
+    },
+    getUserId: () => dispatch(getUserId()),
+    patchIssue: (issue, issueId, unlock, replyId) => {
+      dispatch(patchIssue(issue, issueId, unlock, replyId));
+    },
+    deleteIssue: (issueId, replyId) => {
+      dispatch(deleteIssue(issueId, replyId));
     }
   };
 };

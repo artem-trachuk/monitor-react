@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Card, Divider, Grid, Header, Icon, Modal } from "semantic-ui-react";
 import { FormattedMessage } from "react-intl";
 import QRCode from "qrcode.react";
+import {Link} from "react-router-dom";
 
 const Contact = props => {
   const { showCompany } = props;
@@ -28,7 +29,7 @@ const Contact = props => {
         <Card.Header>
           <Grid verticalAlign="middle">
             <Grid.Column floated="left" width={12}>
-              {contact.name}
+              <Link to={"/r/contacts/" + contact._id}>{contact.name}</Link>
             </Grid.Column>
             <Grid.Column textAlign={"right"} floated="right" width={4}>
               <Modal size={"mini"} trigger={<Icon name="qrcode" size="big" />}>
@@ -46,7 +47,7 @@ const Contact = props => {
               <Icon name="industry" />
               <Header.Content>
                 <Header.Subheader>
-                  <FormattedMessage id="editor.company" />
+                  <FormattedMessage id="interface.company" />
                 </Header.Subheader>
                 {contact.company.name}
               </Header.Content>
@@ -66,7 +67,7 @@ const Contact = props => {
               <Icon name="sticky note" />
               <Header.Content>
                 <Header.Subheader>
-                  <FormattedMessage id="editor.note" />
+                  <FormattedMessage id="interface.note" />
                 </Header.Subheader>
                 {contact.note}
               </Header.Content>

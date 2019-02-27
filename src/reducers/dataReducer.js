@@ -1,4 +1,5 @@
 import {
+  DELETE_ITEM,
   RECEIVE_ITEM,
   RECEIVE_ITEMS,
   REQUEST_API
@@ -10,14 +11,18 @@ export default function dataReducer(state = { isFetching: false }, action) {
     case RECEIVE_ITEMS:
       if (state[action.resource]) {
         items = [...state[action.resource]];
-        action.payload.forEach(item => {
-          const index = items.findIndex(i => i._id === item._id);
-          if (index === -1) {
-            items.push(item);
-          } else {
-            items[index] = { ...items[index], ...item };
-          }
-        });
+        if (action.payload.length === 0) {
+          items = [];
+        } else {
+          action.payload.forEach(item => {
+            const index = items.findIndex(i => i._id === item._id);
+            if (index === -1) {
+              items.push(item);
+            } else {
+              items[index] = { ...items[index], ...item };
+            }
+          });
+        }
       } else {
         items = action.payload;
       }
@@ -45,6 +50,13 @@ export default function dataReducer(state = { isFetching: false }, action) {
       return {
         ...state,
         isFetching: true
+      };
+    case DELETE_ITEM:
+      return {
+        ...state,
+        [action.resource]: state[action.resource].filter(
+          i => i._id !== action.id
+        )
       };
     default:
       return state;

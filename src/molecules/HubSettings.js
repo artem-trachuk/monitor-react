@@ -3,11 +3,14 @@ import PropTypes from "prop-types";
 import { Dropdown, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
+import DeleteDataByIdDialog from "./DeleteDataByIdDialog";
+import { hubResource } from "../helpers/resourceNames";
 
 const HubSettings = props => {
   const hub = props.hub;
   const create = props.create;
   const update = props.update;
+  const deleteHub = props.deleteHub;
   return (
     <Dropdown
       pointing={"top right"}
@@ -19,21 +22,54 @@ const HubSettings = props => {
           <>
             <Dropdown.Item
               as={Link}
-              to={"/r/devices/add/camera/" + hub._id + "/" + hub.name}
+              to={
+                hub.LatLng
+                  ? "/r/devices/add/camera/" +
+                    hub._id +
+                    "/" +
+                    hub.name +
+                    "/" +
+                    hub.LatLng.lat +
+                    "/" +
+                    hub.LatLng.lng
+                  : "/r/devices/add/camera/" + hub._id + "/" + hub.name
+              }
             >
               <Icon name="record" />{" "}
               <FormattedMessage id="interface.addCamera" />
             </Dropdown.Item>
             <Dropdown.Item
               as={Link}
-              to={"/r/devices/add/netdev/" + hub._id + "/" + hub.name}
+              to={
+                hub.LatLng
+                  ? "/r/devices/add/netdev/" +
+                    hub._id +
+                    "/" +
+                    hub.name +
+                    "/" +
+                    hub.LatLng.lat +
+                    "/" +
+                    hub.LatLng.lng
+                  : "/r/devices/add/netdev/" + hub._id + "/" + hub.name
+              }
             >
               <Icon name="microchip" />{" "}
               <FormattedMessage id="interface.addNetDev" />
             </Dropdown.Item>
             <Dropdown.Item
               as={Link}
-              to={"/r/devices/add/recorder/" + hub._id + "/" + hub.name}
+              to={
+                hub.LatLng
+                  ? "/r/devices/add/recorder/" +
+                    hub._id +
+                    "/" +
+                    hub.name +
+                    "/" +
+                    hub.LatLng.lat +
+                    "/" +
+                    hub.LatLng.lng
+                  : "/r/devices/add/recorder/" + hub._id + "/" + hub.name
+              }
             >
               <Icon name="hdd" />{" "}
               <FormattedMessage id="interface.addRecorder" />
@@ -41,9 +77,29 @@ const HubSettings = props => {
           </>
         )}
         {update && (
-          <Dropdown.Item as={Link} to={"/r/hubs/edit/" + hub._id}>
-            <Icon name="edit" /> <FormattedMessage id="companyEditor.edit" />
-          </Dropdown.Item>
+          <>
+            <Dropdown.Divider />
+            <Dropdown.Item as={Link} to={"/r/hubs/edit/" + hub._id}>
+              <Icon name="edit" /> <FormattedMessage id="interface.edit" />
+            </Dropdown.Item>
+            <Dropdown.Item disabled>
+              <Icon name="archive" />{" "}
+              <FormattedMessage id="interface.archive" />
+            </Dropdown.Item>
+            {deleteHub && (
+              <DeleteDataByIdDialog
+                resourceName={hubResource}
+                id={hub._id}
+                header={<FormattedMessage id={"string.deleteHubHeader"} />}
+                body={
+                  <FormattedMessage
+                    id={"string.deleteHubBody"}
+                    values={{ hub: hub.name }}
+                  />
+                }
+              />
+            )}
+          </>
         )}
       </Dropdown.Menu>
     </Dropdown>

@@ -17,7 +17,7 @@ const DeviceEditForm = props => {
     <div className="eight wide column">
       <Form.Field>
         <label>
-          <FormattedMessage id="editor.name" />
+          <FormattedMessage id="interface.name" />
         </label>
         <Field
           icon={iconName}
@@ -30,7 +30,7 @@ const DeviceEditForm = props => {
       </Form.Field>
       <Form.Field>
         <label>
-          <FormattedMessage id="editor.ip" />
+          <FormattedMessage id="interface.ip" />
         </label>
         <Field
           icon="terminal"
@@ -42,7 +42,7 @@ const DeviceEditForm = props => {
       </Form.Field>
       <Form.Field>
         <label>
-          <FormattedMessage id="editor.serial" />
+          <FormattedMessage id="interface.serial" />
         </label>
         <Field
           icon="barcode"
@@ -55,22 +55,28 @@ const DeviceEditForm = props => {
       {props.deviceType === "camera" && (
         <Form.Field>
           <label>
-            <FormattedMessage id="editor.ptz" />
+            <FormattedMessage id="interface.ptz" />
           </label>
           <Field name="ptz" id="ptz" component="input" type="checkbox" />
         </Form.Field>
       )}
       <Form.Field>
         <label>
-          <FormattedMessage id="editor.note" />
+          <FormattedMessage id="interface.note" />
         </label>
         <Field name="note" component="textarea" rows={3} />
       </Form.Field>
       <Field
         component={inputField}
-        text={<FormattedMessage id={"companyEditor.uploadPhotos"} />}
+        text={<FormattedMessage id={"interface.uploadPhotos"} />}
         icon="file image"
         name="photos"
+      />
+      <Field
+        component={inputField}
+        text={<FormattedMessage id={"interface.uploadDocuments"} />}
+        icon="file pdf"
+        name="documents"
       />
     </div>
   );

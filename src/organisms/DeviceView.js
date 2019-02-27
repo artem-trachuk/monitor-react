@@ -13,7 +13,7 @@ const DeviceView = props => {
         <Icon name={iconName} />
         <Header.Content>
           <Header.Subheader>
-            <FormattedMessage id="editor.name" />
+            <FormattedMessage id="interface.name" />
           </Header.Subheader>
           {props.device.name}
         </Header.Content>
@@ -22,7 +22,7 @@ const DeviceView = props => {
         <Icon name="warehouse" />
         <Header.Content>
           <Header.Subheader>
-            <FormattedMessage id="common.hub" />
+            <FormattedMessage id="interface.hub" />
           </Header.Subheader>
           <Link to={"/r/hubs/view/" + props.device.hub._id}>
             {props.device.hub.name}
@@ -34,7 +34,7 @@ const DeviceView = props => {
           <Icon name="expand" />
           <Header.Content>
             <Header.Subheader>
-              <FormattedMessage id="editor.ptz" />
+              <FormattedMessage id="interface.ptz" />
             </Header.Subheader>
             {props.device.ptz ? "Yes" : "No"}
           </Header.Content>
@@ -45,7 +45,7 @@ const DeviceView = props => {
           <Icon name="terminal" />
           <Header.Content>
             <Header.Subheader>
-              <FormattedMessage id="editor.ip" />
+              <FormattedMessage id="interface.ip" />
             </Header.Subheader>
             {props.device.ip}{" "}
             <CopyToClipboard text={props.device.ip}>
@@ -59,7 +59,7 @@ const DeviceView = props => {
           <Icon name="barcode" />
           <Header.Content>
             <Header.Subheader>
-              <FormattedMessage id="editor.serial" />
+              <FormattedMessage id="interface.serial" />
             </Header.Subheader>
             {props.device.serial}
           </Header.Content>
@@ -70,7 +70,7 @@ const DeviceView = props => {
           <Icon name="sticky note" />
           <Header.Content>
             <Header.Subheader>
-              <FormattedMessage id="editor.note" />
+              <FormattedMessage id="interface.note" />
             </Header.Subheader>
             {props.device.note}
           </Header.Content>

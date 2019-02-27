@@ -4,15 +4,6 @@ import { FormattedMessage } from "react-intl";
 import MapWrapper from "./MapWrapper";
 
 const CompanyView = props => {
-  //TODO change localhost, defaultCenter
-  const documents =
-    props.company && props.company.documents
-      ? props.company.documents.map(doc => (
-          <List.Item as="a" href={"/" + doc.path} key={doc.path}>
-            <Icon name="file" /> {doc.originalname}
-          </List.Item>
-        ))
-      : null;
   return (
     <>
       <div className="ui row stackable">
@@ -21,7 +12,7 @@ const CompanyView = props => {
             <Icon name="industry" />
             <Header.Content>
               <Header.Subheader>
-                <FormattedMessage id="editor.name" />
+                <FormattedMessage id="interface.name" />
               </Header.Subheader>
               {props.company.name}
             </Header.Content>
@@ -31,7 +22,7 @@ const CompanyView = props => {
               <Icon name="map marker alternate" />
               <Header.Content>
                 <Header.Subheader>
-                  <FormattedMessage id="companyEditor.address" />
+                  <FormattedMessage id="interface.address" />
                 </Header.Subheader>
                 {props.company.address}
               </Header.Content>
@@ -57,7 +48,7 @@ const CompanyView = props => {
               <Icon name="at" />
               <Header.Content>
                 <Header.Subheader>
-                  <FormattedMessage id="companyEditor.email" />
+                  <FormattedMessage id="interface.email" />
                 </Header.Subheader>
                 {
                   <a href={"mailto:" + props.company.email}>
@@ -72,7 +63,7 @@ const CompanyView = props => {
               <Icon name="sticky note" />
               <Header.Content>
                 <Header.Subheader>
-                  <FormattedMessage id="editor.note" />
+                  <FormattedMessage id="interface.note" />
                 </Header.Subheader>
                 {props.company.note}
               </Header.Content>
@@ -82,33 +73,10 @@ const CompanyView = props => {
         {props.company.LatLng ? (
           <div className="eight wide column">
             <MapWrapper
-              defaultCenter={{ lat: 46.5886146, lng: 30.7918339 }}
-              marker={props.company.LatLng || null}
+              marker={props.company.LatLng}
             />
           </div>
         ) : null}
-
-        {documents && documents.length > 0 && (
-          <div className="eight wide column">
-            <Divider />
-            <Header as="h2">
-              <Icon name="file pdf" />
-              <Header.Content>
-                <FormattedMessage id="companyEditor.documents" />
-              </Header.Content>
-              {documents ? <List link>{documents}</List> : null}
-            </Header>
-          </div>
-        )}
-        {false && <div className="eight wide column">
-          <Divider />
-          <Header as="h2">
-            <Icon name="address book" />
-            <Header.Content>
-              <FormattedMessage id="top.contacts" />
-            </Header.Content>
-          </Header>
-        </div>}
       </div>
     </>
   );

@@ -15,6 +15,8 @@ import DeviceViewer from "./DeviceViewer";
 import Permissions from "./Permissions";
 import User from "./User";
 import AboutUs from "./AboutUs";
+import IpTable from "./IpTable";
+import ContactPage from "./ContactPage";
 
 class Routes extends Component {
   render() {
@@ -23,7 +25,7 @@ class Routes extends Component {
         <Route exact path="/" component={Home} />
         <Route path="/r/home" component={Home} />
         <Route path="/r/networks" component={Networks} />
-        <Route path="/r/contacts" component={Contacts} />
+        <Route exact path="/r/contacts" component={Contacts} />
         <Route exact path="/r/companies/add" component={CompanyAdder} />
         <Route exact path="/r/companies/edit/:id" component={CompanyEditor} />
         <Route exact path="/r/companies/view/:id" component={CompanyViewer} />
@@ -39,11 +41,18 @@ class Routes extends Component {
           path="/r/devices/add/:deviceType/:hubId/:hubName"
           component={DeviceAdder}
         />
+        <Route
+          exact
+          path="/r/devices/add/:deviceType/:hubId/:hubName/:lat/:lng"
+          component={DeviceAdder}
+        />
         <Route exact path="/r/devices/edit/:id" component={DeviceEditor} />
         <Route exact path="/r/devices/view/:id" component={DeviceViewer} />
         <Route path="/r/permissions/:companyId" component={Permissions} />
         <Route exact path="/r/user" component={User} />
         <Route path={"/r/about_us"} component={AboutUs} />
+        <Route exact path={"/r/iptable"} component={IpTable} />
+        <Route exact path={"/r/contacts/:id"} component={ContactPage} />
       </>
     );
   }

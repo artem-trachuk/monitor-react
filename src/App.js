@@ -6,7 +6,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
 // components
 import Routes from "./pages/Routes";
-import Guest from "./pages/Guest";
 import {
   getDefaultCenterFromUserAgent,
   login,
@@ -20,8 +19,10 @@ import { IntlProvider } from "react-intl";
 import { addLocaleData } from "react-intl";
 import en from "react-intl/locale-data/en";
 import uk from "react-intl/locale-data/uk";
+import ru from "react-intl/locale-data/ru";
 import messages_uk from "./locales/uk";
 import messages_en from "./locales/en";
+import messages_ru from "./locales/ru";
 // Import FirebaseAuth and firebase.
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from "firebase/app";
@@ -43,12 +44,13 @@ const config = {
 
 firebase.initializeApp(config);
 
-addLocaleData([...en, ...uk]);
+addLocaleData([...en, ...uk, ...ru]);
 
 const messages = {
   uk: messages_uk,
   "en-US": messages_en,
-  "en-GB": messages_en
+  "en-GB": messages_en,
+  ru: messages_ru
 };
 
 // TODO bookmarks, tags

@@ -12,9 +12,25 @@ code {
 }
 
 .ukraine_now_logo {
-  height: 20vh;
+  /*height: 20vh;*/
 }
 
 .checkbox {
     margin: 10px;
+}
+
+.pointer_on_hover:hover {
+    cursor: pointer;
+}
+
+.green_color_on_hover:hover {
+    color: green;
+}
+
+.red_color_on_hover:hover {
+    color: red;
+}
+
+.viewerLogo {
+    max-height: 4rem;
 }
