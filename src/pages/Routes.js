@@ -48,7 +48,7 @@ class Routes extends Component {
         />
         <Route exact path="/r/devices/edit/:id" component={DeviceEditor} />
         <Route exact path="/r/devices/view/:id" component={DeviceViewer} />
-        <Route path="/r/permissions/:companyId" component={Permissions} />
+        <Route path="/r/permissions/:companyId/:companyName" component={Permissions} />
         <Route exact path="/r/user" component={User} />
         <Route path={"/r/about_us"} component={AboutUs} />
         <Route exact path={"/r/iptable"} component={IpTable} />

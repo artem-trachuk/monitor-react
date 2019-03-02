@@ -1,6 +1,7 @@
 import {
   RECEIVE_CONTACT,
   RECEIVE_CONTACTS,
+  REMOVE_CONTACT,
   REQUEST_CONTACTS,
   SET_CONTACTS_ERROR
 } from "../actions/contactsActions";
@@ -30,7 +31,9 @@ export default function contacts(
       };
     case RECEIVE_CONTACT:
       const contactsCopy = [...state.contacts];
-      const contactIndex = contactsCopy.findIndex(c => c._id === action.payload._id);
+      const contactIndex = contactsCopy.findIndex(
+        c => c._id === action.payload._id
+      );
       if (contactIndex !== -1) {
         contactsCopy[contactIndex] = action.payload;
       } else {
@@ -38,7 +41,14 @@ export default function contacts(
       }
       return {
         ...state,
+        isFetching: false,
         contacts: contactsCopy
+      };
+    case REMOVE_CONTACT:
+      return {
+        ...state,
+        isFetching: false,
+        contacts: state.contacts.filter(c => c._id !== action.payload)
       };
     default:
       return state;

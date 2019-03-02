@@ -32,15 +32,15 @@ const HubDevices = props => {
         </List>
       </div>
       <div>
-        <Icon name="hdd" />
-        <List bulleted horizontal>
-          {recorders}
-        </List>
-      </div>
-      <div>
         <Icon name="microchip" />
         <List bulleted horizontal>
           {netdevs}
+        </List>
+      </div>
+      <div>
+        <Icon name="hdd" />
+        <List bulleted horizontal>
+          {recorders}
         </List>
       </div>
     </>

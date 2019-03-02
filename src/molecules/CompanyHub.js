@@ -7,7 +7,7 @@ import { FormattedMessage, FormattedPlural } from "react-intl";
 const CompanyHub = props => {
   const hub = props.hub;
   return (
-    <div className="column" style={{marginBottom: "4vh"}}>
+    <div className="column" style={{ marginBottom: "4vh" }}>
       <Card raised>
         <Card.Content>
           {hub.issues.length > 0 ? (
@@ -51,15 +51,15 @@ const CompanyHub = props => {
                       : 0}
                   </List.Item>
                   <List.Item>
+                    <Icon name="microchip" />{" "}
+                    {hub.devices.filter(d => d.deviceType === "netdev").length}
+                  </List.Item>
+                  <List.Item>
                     <Icon name="hdd" />{" "}
                     {
                       hub.devices.filter(d => d.deviceType === "recorder")
                         .length
                     }
-                  </List.Item>
-                  <List.Item>
-                    <Icon name="microchip" />{" "}
-                    {hub.devices.filter(d => d.deviceType === "netdev").length}
                   </List.Item>
                 </>
               )}

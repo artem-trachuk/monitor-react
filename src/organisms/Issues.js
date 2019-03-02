@@ -137,9 +137,7 @@ class Issues extends Component {
                   )}
                 </div>
               </Comment.Metadata>
-              <Comment.Text>
-                {comment.message}
-              </Comment.Text>
+              <Comment.Text>{comment.message}</Comment.Text>
             </Comment.Content>
             <Comment.Group collapsed={collapsed}>
               {comment.replies.map(reply => {
@@ -194,16 +192,18 @@ class Issues extends Component {
         );
       });
       view = (
-        <div className="row">
+        <div className="row viewer-block-margin">
           <div className="sixteen wide column">
             <Comment.Group threaded>
-              <Header as="h3">
+              <Header as="h2">
                 <Icon name={"stethoscope"} />{" "}
                 <FormattedMessage id="interface.issue" />
               </Header>
               <Checkbox
                 checked={this.state.collapsed}
-                label={intl.formatMessage({ id: "interface.collapseComments" })}
+                label={intl.formatMessage({
+                  id: "interface.collapseComments"
+                })}
                 onChange={this.handleCheckbox}
               />
               {comments}
@@ -211,7 +211,9 @@ class Issues extends Component {
               {this.props.update && (
                 <Form reply>
                   <Form.TextArea
-                    onChange={(e, { value }) => this.handleIssueForm(value)}
+                    onChange={(e, { value }) =>
+                      this.handleIssueForm(value)
+                    }
                   />
                   <Button
                     type={"button"}

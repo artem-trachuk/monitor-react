@@ -9,7 +9,7 @@ const LogoPhotosHeaders = props => {
     <div className="row">
       <div className="three wide column middle aligned">
         {props.logo && (
-          <Image className={".viewerLogo"} src={serverURL + props.logo.path} />
+          <Image className={"viewerLogo"} src={serverURL + props.logo.path} />
         )}
       </div>
       <Photos photos={props.photos} />
@@ -18,7 +18,7 @@ const LogoPhotosHeaders = props => {
 };
 
 LogoPhotosHeaders.propTypes = {
-  logo: PropTypes.string.isRequired,
+  logo: PropTypes.object.isRequired,
   photos: PropTypes.array.isRequired
 };
 

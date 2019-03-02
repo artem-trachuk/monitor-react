@@ -19,15 +19,26 @@ const FileInputField = props => {
         {text}
         <Icon name={icon} />
       </Button>
-      <input
-        name={name}
-        hidden
-        id={name}
-        multiple
-        type="file"
-        accept="image/*"
-        onChange={onChange}
-      />
+      {name === "documents" ? (
+        <input
+          name={name}
+          hidden
+          id={name}
+          multiple
+          type="file"
+          onChange={onChange}
+        />
+      ) : (
+        <input
+          name={name}
+          hidden
+          id={name}
+          multiple
+          type="file"
+          accept="image/*"
+          onChange={onChange}
+        />
+      )}
     </>
   );
 };

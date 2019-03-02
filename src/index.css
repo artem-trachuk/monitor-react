@@ -13,6 +13,7 @@ code {
 
 .ukraine_now_logo {
   /*height: 20vh;*/
+    border-left: #3ac0ff 1px solid;
 }
 
 .checkbox {
@@ -33,4 +34,62 @@ code {
 
 .viewerLogo {
     max-height: 4rem;
+}
+
+#telegram-guest, #messenger-guest {
+    display: inline;
+    height: 50px;
+    margin-right: 50px;
+}
+#telegram-bottom, #messenger-bottom {
+    display: inline;
+    height: 25px;
+    margin-left: 25px;
+}
+
+#ukraine-now-guest {
+    height: 200px;
+}
+
+.footer-messenger-image {
+    height: 100px;
+}
+
+.developed-by {
+    color: #888;
+    display: block;
+    font-size: .8rem;
+    margin: 40px 0;
+}
+
+.guest-photo-image {
+    /*border-radius: 8px;*/
+    box-shadow: 0 2px .4em #3ac0ff;
+    /*height: 25vh;*/
+    transition: box-shadow 200ms;
+}
+
+.guest-photo-image:hover {
+    box-shadow: 0 2px .8em #3ac0ff;
+    cursor: pointer;
+}
+
+.guest-photos {
+    margin: 20vh 0;
+}
+
+.bottom-navigation {
+    margin: 80px 0 20px 0;
+}
+
+.viewer-block-margin {
+    margin-top: 8vh;
+}
+
+.guest-photos-column {
+    margin-top: 4vh;
+}
+
+.guest-logo {
+    margin: 0 0 10vh 0;
 }

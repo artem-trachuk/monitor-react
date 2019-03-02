@@ -12,6 +12,7 @@ export const REQUEST_CONTACTS = "REQUEST_CONTACTS";
 export const RECEIVE_CONTACTS = "RECEIVE_CONTACTS";
 export const SET_CONTACTS_ERROR = "SET_CONTACTS_ERROR";
 export const RECEIVE_CONTACT = "RECEIVE_CONTACT";
+export const REMOVE_CONTACT = "REMOVE_CONTACT";
 
 /*
  * Action creators
@@ -44,6 +45,13 @@ export function setContactsError(error) {
   };
 }
 
+export function removeContact(id) {
+  return {
+    type: REMOVE_CONTACT,
+    payload: id
+  };
+}
+
 /*
  * API calls
  */
@@ -70,6 +78,7 @@ export function fetchContacts() {
 
 export function fetchContact(id) {
   return dispatch => {
+    dispatch(requestContacts());
     return firebase
       .auth()
       .currentUser.getIdToken(false)
@@ -97,4 +106,37 @@ export function addContact(contact) {
         })
       )
       .then(result => dispatch(getDataByAPI(companyResource, contact.company)));
+}
+
+export function patchContact(contact) {
+  const id = contact._id;
+  return dispatch =>
+    firebase
+      .auth()
+      .currentUser.getIdToken(false)
+      .then(idToken =>
+        axiosHttpClient.patch("contacts/" + id, contact, {
+          headers: {
+            Authorization: "Bearer " + idToken
+          }
+        })
+      )
+      .then(result => dispatch(fetchContact(id)));
+}
+
+export function deleteContact(id) {
+  return dispatch =>
+    firebase
+      .auth()
+      .currentUser.getIdToken(false)
+      .then(idToken =>
+        axiosHttpClient.delete("contacts/" + id, {
+          headers: {
+            Authorization: "Bearer " + idToken
+          }
+        })
+      )
+      .then(result => {
+        dispatch(removeContact(id));
+      });
 }

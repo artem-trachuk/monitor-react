@@ -14,7 +14,7 @@ const DocsOrganism = props => {
     : undefined;
   return (
     <>
-      <div className="eight wide column">
+      <div className="eight wide column viewer-block-margin">
         <Header as="h2">
           <Icon name="file pdf" />
           <Header.Content>

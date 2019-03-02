@@ -15,7 +15,7 @@ import {
 import { Dimmer, Loader } from "semantic-ui-react";
 import TopNavigation from "./organisms/TopNavigation";
 // react-intl
-import { IntlProvider } from "react-intl";
+import { FormattedMessage, IntlProvider } from "react-intl";
 import { addLocaleData } from "react-intl";
 import en from "react-intl/locale-data/en";
 import uk from "react-intl/locale-data/uk";
@@ -31,6 +31,7 @@ import ErrorTemplate from "./templates/ErrorTemplate";
 import BottomNavigation from "./organisms/BottomNavigation";
 import UnprotectedRoutes from "./helpers/UnprotectedRoutes";
 import GuestTopBar from "./organisms/GuestTopBar";
+import GuestFooter from "./organisms/GuestFooter";
 
 // Configure Firebase.
 const config = {
@@ -99,34 +100,43 @@ class App extends Component {
     const user = this.props.userR.user;
     let view = <></>;
     if (this.state.hasError || this.props.userR.error) {
-      view = <ErrorTemplate error={this.state.hasError || this.props.userR.error} />;
+      view = (
+        <ErrorTemplate error={this.state.hasError || this.props.userR.error} />
+      );
     } else if (user === undefined) {
       view = (
         <div className="ui container">
           <Dimmer active inverted>
-            <Loader size="large">Loading</Loader>
+            <Loader size="large">
+              <FormattedMessage id={"interface.loading"} />
+            </Loader>
           </Dimmer>
         </div>
       );
     } else if (user === null) {
       view = (
         <>
-          <GuestTopBar auth={
-            <StyledFirebaseAuth
+          <GuestTopBar
+            auth={
+              <StyledFirebaseAuth
                 uiConfig={this.uiConfig}
                 firebaseAuth={firebase.auth()}
-            />
-          }/>
+              />
+            }
+          />
           {/*<Guest*/}
-            {/*auth={*/}
-              {/*<StyledFirebaseAuth*/}
-                {/*uiConfig={this.uiConfig}*/}
-                {/*firebaseAuth={firebase.auth()}*/}
-              {/*/>*/}
-            {/*}*/}
+          {/*auth={*/}
+          {/*<StyledFirebaseAuth*/}
+          {/*uiConfig={this.uiConfig}*/}
+          {/*firebaseAuth={firebase.auth()}*/}
           {/*/>*/}
-          <UnprotectedRoutes />
-          <BottomNavigation />
+          {/*}*/}
+          {/*/>*/}
+          <div style={{ flexGrow: 1 }}>
+            <UnprotectedRoutes />
+          </div>
+          {/*<BottomNavigation />*/}
+          <GuestFooter />
         </>
       );
     } else if (user && this.props.userR.isLoggedIn) {
@@ -137,7 +147,9 @@ class App extends Component {
             photo={this.props.userR.user.photoURL}
             signOut={this.props.logout}
           />
-          <Routes />
+          <div style={{ flexGrow: 1 }}>
+            <Routes />
+          </div>
           <BottomNavigation />
         </>
       );

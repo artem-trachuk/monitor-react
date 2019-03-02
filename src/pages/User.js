@@ -3,12 +3,22 @@ import { getUserId, logout } from "../actions/userActions";
 import { connect } from "react-redux";
 import { Button, Header, Icon, Image } from "semantic-ui-react";
 import { FormattedMessage } from "react-intl";
+import UserTemplate from "../templates/UserTemplate";
 
 class User extends Component {
   componentDidMount() {
     this.props.getUserId();
   }
   render() {
+    const reducer = this.props.userReducer;
+    return (
+      <UserTemplate
+        user={reducer.user}
+        companies={reducer.companies}
+        logout={this.props.logout}
+        userId={reducer.userId}
+      />
+    );
     return (
       <div className="ui container">
         <div className="ui grid">

@@ -11,6 +11,7 @@ export const SET_ERROR = "SET_ERROR";
 export const SET_IS_LOGGED = "SET_IS_LOGGED";
 export const SET_DEFAULT_CENTER = "SET_DEFAULT_CENTER";
 export const SET_USER_ID = "SET_USER_ID";
+export const SET_USER_COMPANIES = "SET_USER_COMPANIES";
 
 /*
  * action creators
@@ -54,6 +55,13 @@ export function setUserId(id) {
   return {
     type: SET_USER_ID,
     payload: id
+  };
+}
+
+export function setUserCompanies(companies) {
+  return {
+    type: SET_USER_COMPANIES,
+    payload: companies
   };
 }
 
@@ -113,7 +121,8 @@ export function getUserId() {
             })
             .then(
               result => {
-                dispatch(setUserId(result.data._id));
+                dispatch(setUserId(result.data.result.user._id));
+                dispatch(setUserCompanies(result.data.result.companies));
               },
               error => {
                 dispatch(setError(error.toString()));
@@ -143,10 +152,10 @@ export function getDefaultCenterFromUserAgent() {
           case "en-GB":
             // Big Ben
             dispatch(
-                setDefaultCenter({
-                  lat: 51.50078340519703,
-                  lng: -0.12459538923064883
-                })
+              setDefaultCenter({
+                lat: 51.50078340519703,
+                lng: -0.12459538923064883
+              })
             );
             break;
           case "en-US":

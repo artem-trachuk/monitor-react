@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import { setNavigatedLink } from "../actions/navigationActions";
+import Logo from "../images/logo-final.png";
 
 class TopNavigation extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -16,7 +17,7 @@ class TopNavigation extends Component {
       >
         <Menu secondary stackable>
           <Menu.Item>
-            <Icon name="record" className="green" /> <b>Monitor PS</b>
+            <Image size={"tiny"} centered src={Logo} />
           </Menu.Item>
           <Menu.Item
             as={Link}

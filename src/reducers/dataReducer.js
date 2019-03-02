@@ -14,14 +14,15 @@ export default function dataReducer(state = { isFetching: false }, action) {
         if (action.payload.length === 0) {
           items = [];
         } else {
-          action.payload.forEach(item => {
-            const index = items.findIndex(i => i._id === item._id);
-            if (index === -1) {
-              items.push(item);
-            } else {
-              items[index] = { ...items[index], ...item };
-            }
-          });
+          // action.payload.forEach(item => {
+          //   const index = items.findIndex(i => i._id === item._id);
+          //   if (index === -1) {
+          //     items.push(item);
+          //   } else {
+          //     items[index] = { ...items[index], ...item };
+          //   }
+          // });
+          items = action.payload;
         }
       } else {
         items = action.payload;

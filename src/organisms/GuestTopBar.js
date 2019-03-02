@@ -1,6 +1,8 @@
 import React from "react";
-import { Icon, Label, Menu } from "semantic-ui-react";
+import {Icon, Image, Label, Menu} from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import LanguageDropdown from "../molecules/LanguageDropdown";
+import Logo from "../images/logo-final.png";
 
 const GuestTopBar = props => {
   return (
@@ -10,14 +12,14 @@ const GuestTopBar = props => {
     >
       <Menu secondary stackable>
         <Menu.Item as={Link} to="/">
-          <Icon name="record" className="green" /> <b>Monitor PS</b>
-          <Label color="blue" floating>
-            beta
-          </Label>
+          <Image size={"tiny"} centered src={Logo} />
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item>{props.auth}</Menu.Item>
         </Menu.Menu>
+        <Menu.Item>
+          <LanguageDropdown />
+        </Menu.Item>
       </Menu>
     </div>
   );

@@ -3,6 +3,7 @@ import { fetchContact } from "../actions/contactsActions";
 import { connect } from "react-redux";
 import ContactTemplate from "../templates/ContactTemplate";
 import LoadingTemplate from "../templates/LoadingTemplate";
+import NoDataTemplate from "../templates/NoDataTemplate";
 
 class ContactPage extends Component {
   componentDidMount() {
@@ -13,9 +14,11 @@ class ContactPage extends Component {
     const contact =
       this.props.contacts.find(c => c._id === this.props.match.params.id) ||
       undefined;
+    const isFetching = this.props.isFetching;
     return (
       <>
-        {!contact && <LoadingTemplate />}
+        {!contact && !isFetching && <NoDataTemplate />}
+        {!contact && isFetching && <LoadingTemplate />}
         {contact && <ContactTemplate contact={contact} />}
       </>
     );
@@ -24,7 +27,8 @@ class ContactPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    contacts: state.contactsReducer.contacts || []
+    contacts: state.contactsReducer.contacts || [],
+    isFetching: state.contactsReducer.isFetching
   };
 };
 

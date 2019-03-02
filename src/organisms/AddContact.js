@@ -6,7 +6,7 @@ import { Field, reduxForm } from "redux-form";
 import { renderField } from "../molecules/renderField";
 import { requiredValidator } from "../helpers/reduxFormValidators";
 import { Form } from "semantic-ui-react";
-import { addContact } from "../actions/contactsActions";
+import { addContact, patchContact } from "../actions/contactsActions";
 import { connect } from "react-redux";
 
 class AddContact extends Component {
@@ -20,7 +20,9 @@ class AddContact extends Component {
   close = () => this.setState({ open: false });
   submitForm = values => {
     values.company = this.props.company;
-    this.props.addContact(values);
+    this.props.initialValues
+      ? this.props.patchContact(values)
+      : this.props.addContact(values);
     this.setState({ open: false });
   };
   render() {
@@ -32,20 +34,40 @@ class AddContact extends Component {
         onClose={this.close}
         size={"tiny"}
         trigger={
-          <Dropdown.Item  onClick={this.open}>
-            <Icon name="address book" />{" "}
-              <FormattedMessage
-                icon
-                labelPosition="right"
-                id="interface.addContact"
-              />
+          <Dropdown.Item onClick={this.open}>
+            {this.props.initialValues ? (
+              <>
+                <Icon name="edit" />
+                <FormattedMessage
+                  icon
+                  labelPosition="right"
+                  id="interface.edit"
+                />
+              </>
+            ) : (
+              <>
+                <Icon name="address book" />
+                <FormattedMessage
+                  icon
+                  labelPosition="right"
+                  id="interface.addContact"
+                />
+              </>
+            )}
           </Dropdown.Item>
         }
       >
-        <Modal.Header>
-          <Icon name="address book" />{" "}
-          <FormattedMessage id="interface.addContact" />
-        </Modal.Header>
+        {this.props.initialValues ? (
+          <Modal.Header>
+            <Icon name="address book" />{" "}
+            <FormattedMessage id="interface.editContact" />
+          </Modal.Header>
+        ) : (
+          <Modal.Header>
+            <Icon name="address book" />{" "}
+            <FormattedMessage id="interface.addContact" />
+          </Modal.Header>
+        )}
         <Modal.Content>
           <Form onSubmit={handleSubmit(this.submitForm)}>
             <Form.Field>
@@ -99,7 +121,8 @@ AddContact.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addContact: contact => dispatch(addContact(contact))
+    addContact: contact => dispatch(addContact(contact)),
+    patchContact: contact => dispatch(patchContact(contact))
   };
 };
 

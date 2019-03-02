@@ -8,6 +8,7 @@ import { axiosHttpClient } from "../axiosInstance";
 
 export const REQUEST_USERS = "REQUEST_USERS";
 export const RECEIVE_USERS = "RECEIVE_USERS";
+export const RECEIVE_PERMISSIONS = "RECEIVE_PERMISSIONS";
 
 /*
  * Action creators
@@ -23,6 +24,13 @@ export function receiveUser(user) {
   return {
     type: RECEIVE_USERS,
     payload: user
+  };
+}
+
+export function receivePermissions(permissions) {
+  return {
+    type: RECEIVE_PERMISSIONS,
+    payload: permissions
   };
 }
 
@@ -61,22 +69,44 @@ export function postPermissions(company, user, CRUD) {
       .auth()
       .currentUser.getIdToken(false)
       .then(idToken =>
-        axiosHttpClient.post(
-          "permissions/",
-          {
-            company: company,
-            user: user,
-            create: CRUD.create,
-            read: CRUD.read,
-            update: CRUD.update,
-            delete: CRUD.delete
-          },
-          {
-            headers: {
-              Authorization: "Bearer " + idToken
+        axiosHttpClient
+          .post(
+            "permissions/",
+            {
+              company: company,
+              user: user,
+              create: CRUD.create,
+              read: CRUD.read,
+              update: CRUD.update,
+              delete: CRUD.delete
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + idToken
+              }
             }
-          }
-        )
+          )
+          .then(result => {
+            dispatch(getPermissions(company));
+          })
       );
+  };
+}
+
+export function getPermissions(companyId) {
+  return dispatch => {
+    return firebase
+      .auth()
+      .currentUser.getIdToken(false)
+      .then(idToken =>
+        axiosHttpClient.get("permissions/?company=" + companyId, {
+          headers: {
+            Authorization: "Bearer " + idToken
+          }
+        })
+      )
+      .then(result => {
+        dispatch(receivePermissions(result.data.result));
+      });
   };
 }

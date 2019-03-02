@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Card, Divider, Grid, Header, Icon, Modal } from "semantic-ui-react";
 import { FormattedMessage } from "react-intl";
 import QRCode from "qrcode.react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Contact = props => {
   const { showCompany } = props;

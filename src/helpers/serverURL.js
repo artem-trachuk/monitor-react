@@ -1,1 +1,1 @@
-export const serverURL = "http://localhost:3002/";
+export const serverURL = "https://monitor.ps.od.ua/";

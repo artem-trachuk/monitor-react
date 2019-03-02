@@ -38,7 +38,7 @@ const MapWrapper = compose(
       height: 20,
       width: 32
     },
-    url: warehouseSolid
+    // url: warehouseSolid
   };
   if (props.input) {
     // add/edit component

@@ -14,7 +14,7 @@ const NetworksCompany = props => {
         <div className="eight wide column">
           <Link to={"/r/companies/view/" + company._id}>
             {company.logo ? (
-              <Image className={"viwerLogo"} src={serverURL + company.logo.path} />
+              <Image className={"viewerLogo"} src={serverURL + company.logo.path} />
             ) : (
               <Header as="h1">
                 <Icon name="industry" />{" "}

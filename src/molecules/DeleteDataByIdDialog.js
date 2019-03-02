@@ -5,6 +5,8 @@ import { FormattedMessage } from "react-intl";
 import { Dropdown } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { deleteDataByAPI } from "../actions/dataActions";
+import { deleteContact } from "../actions/contactsActions";
+import { contactsResource } from "../helpers/resourceNames";
 
 class DeleteDataByIdDialog extends Component {
   constructor(props, context) {
@@ -46,7 +48,11 @@ class DeleteDataByIdDialog extends Component {
             inverted
             onClick={() => {
               this.close();
-              this.deleteData();
+              if (this.props.resourceName === contactsResource) {
+                this.props.deleteContact(this.props.id);
+              } else {
+                this.deleteData();
+              }
             }}
           >
             <Icon name="trash" /> <FormattedMessage id={"interface.yes"} />
@@ -70,7 +76,8 @@ const mapDispatchToProps = dispatch => {
   return {
     deleteData: (resourceName, id) => {
       dispatch(deleteDataByAPI(resourceName, id));
-    }
+    },
+    deleteContact: id => dispatch(deleteContact(id))
   };
 };
 

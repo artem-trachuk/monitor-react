@@ -15,6 +15,8 @@ const CompanyContacts = props => {
   );
 };
 
-CompanyContacts.propTypes = {};
+CompanyContacts.propTypes = {
+  contacts: PropTypes.array.isRequired
+};
 
 export default CompanyContacts;

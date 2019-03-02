@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Divider, Image } from "semantic-ui-react";
-import { serverURL } from "../helpers/serverURL";
-import Photos from "../organisms/Photos";
+import { Divider } from "semantic-ui-react";
 import HubView from "../organisms/HubView";
 import MapWrapper from "../organisms/MapWrapper";
 import HubSettings from "../molecules/HubSettings";
@@ -16,10 +14,15 @@ const HubViewTemplate = props => {
   return (
     <div className="ui container">
       <div className="ui grid">
-        <LogoPhotosHeaders logo={company.logo} photos={hub.photos}/>
+        <LogoPhotosHeaders logo={company.logo} photos={hub.photos} />
         <Divider />
         {hub.update && (
-          <HubSettings create={hub.create} update={hub.update} hub={hub} deleteHub={hub.delete} />
+          <HubSettings
+            create={hub.create}
+            update={hub.update}
+            hub={hub}
+            deleteHub={hub.delete}
+          />
         )}
         <div className={"row stackable"}>
           <HubView hub={hub} />
@@ -29,7 +32,7 @@ const HubViewTemplate = props => {
             </div>
           )}
         </div>
-        {hub.documents && <DocsOrganism documents={hub.documents}/>}
+        {hub.documents && hub.documents.length > 0 && <DocsOrganism documents={hub.documents} />}
         <Issues update={hub.update} hub={hub} />
       </div>
     </div>

@@ -2,6 +2,7 @@ import {
   SET_DEFAULT_CENTER,
   SET_ERROR,
   SET_IS_LOGGED,
+  SET_USER_COMPANIES,
   SET_USER_ID,
   UPDATE_USER
 } from "../actions/userActions";
@@ -13,7 +14,8 @@ export default function userReducer(
     error: null,
     isLoggedIn: false,
     defaultCenter: null,
-    userId: ''
+    userId: "",
+    companies: []
   },
   action
 ) {
@@ -55,6 +57,12 @@ export default function userReducer(
       state = {
         ...state,
         userId: action.payload
+      };
+      break;
+    case SET_USER_COMPANIES:
+      state = {
+        ...state,
+        companies: action.payload
       };
       break;
     default:
